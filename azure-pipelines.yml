@@ -10,7 +10,6 @@ pool:
   vmImage: 'ubuntu-latest'
 
 steps:
-steps:
 - task: AzureResourceGroupDeployment@2
   inputs:
     azureSubscription: 'documentationteam'
