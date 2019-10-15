@@ -14,6 +14,7 @@ steps:
   inputs:
     deploymentScope: 'Resource Group'
     ConnectedServiceName: 'scopePipeline-conn'
+    subscriptionName: '65a1016d-0f67-45d2-b838-b8f373d6d52e'
     action: 'Create Or Update Resource Group'
     resourceGroupName: 'jgaoscopepipeline'
     location: 'Central US'
