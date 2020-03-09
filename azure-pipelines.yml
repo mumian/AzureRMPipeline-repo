@@ -13,11 +13,13 @@ steps:
 - task: AzureResourceManagerTemplateDeployment@3
   inputs:
     deploymentScope: 'Resource Group'
-    ConnectedServiceName: 'scopePipeline-conn'
+    ConnectedServiceName: 'documentationteam'
     subscriptionName: '65a1016d-0f67-45d2-b838-b8f373d6d52e'
     action: 'Create Or Update Resource Group'
-    resourceGroupName: 'jgaoscopepipeline'
+    resourceGroupName: 'jgaowebpipeline'
     location: 'Central US'
     templateLocation: 'Linked artifact'
-    csmFile: 'CreateAzureStorage/azuredeploy.json'
+    csmFile: 'CreateWebApp/azuredeploy.json'
+    csmParametersFile: 'CreateWebApp/azuredeploy.parameters.json'
     deploymentMode: 'Incremental'
+
