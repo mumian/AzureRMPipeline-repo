@@ -10,11 +10,13 @@ pool:
   vmImage: 'ubuntu-latest'
 
 steps:
-- task: AzureResourceGroupDeployment@2
+- task: AzureResourceManagerTemplateDeployment@3
   inputs:
-    azureSubscription: 'documentationteam'
+    deploymentScope: 'Resource Group'
+    ConnectedServiceName: 'scopePipeline-conn'
+    subscriptionName: '65a1016d-0f67-45d2-b838-b8f373d6d52e'
     action: 'Create Or Update Resource Group'
-    resourceGroupName: 'AzureRmPipeline-rg'
+    resourceGroupName: 'jgaoscopepipeline'
     location: 'Central US'
     templateLocation: 'Linked artifact'
     csmFile: 'CreateAzureStorage/azuredeploy.json'
