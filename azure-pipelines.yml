@@ -13,13 +13,13 @@ steps:
 - task: AzureResourceManagerTemplateDeployment@3
   inputs:
     deploymentScope: 'Resource Group'
-    ConnectedServiceName: 'documentationteam'
-    subscriptionName: '65a1016d-0f67-45d2-b838-b8f373d6d52e'
+    azureResourceManagerConnection: 'AzureRmPipeline-conn'
+    subscriptionId: '65a1016d-0f67-45d2-b838-b8f373d6d52e'
     action: 'Create Or Update Resource Group'
-    resourceGroupName: 'jgaowebpipeline'
+    resourceGroupName: 'AzureRmPipeline-rg'
     location: 'Central US'
     templateLocation: 'Linked artifact'
     csmFile: 'CreateWebApp/azuredeploy.json'
-    overrideParameters: '-projectName jgao0824 -linkedTemplateUri https://raw.githubusercontent.com/mumian/AzureRMPipeline-repo/master/CreateWebApp/linkedStorageAccount.json'
+    overrideParameters: '-projectName jgao0214'
     deploymentMode: 'Incremental'
     deploymentName: 'DeployPipelineTemplate'
