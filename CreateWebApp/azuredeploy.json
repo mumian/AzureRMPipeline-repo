@@ -1,5 +1,5 @@
 {
-  "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+  "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
   "contentVersion": "1.0.0.0",
   "parameters": {
     "projectName": {
@@ -23,28 +23,22 @@
       "metadata": {
         "description": "The Runtime stack of current web app"
       }
-    },
-    "linkedTemplateUri": {
-      "type": "string",
-      "metadata": {
-        "description": "The Uri of the linked template."
-      }
     }
   },
   "variables": {
+    "storageAccountName": "[concat(parameters('projectName'), uniqueString(resourceGroup().id))]",
     "webAppName": "[concat(parameters('projectName'), 'WebApp')]",
-    "appServicePlanName": "[concat(parameters('projectName'), 'Plan')]",
-    "storageAccountName": "[concat(parameters('projectName'), 'store')]"
+    "appServicePlanName": "[concat(parameters('projectName'), 'Plan')]"
   },
   "resources": [
     {
       "name": "linkedTemplate",
       "type": "Microsoft.Resources/deployments",
-      "apiVersion": "2018-05-01",
+      "apiVersion": "2020-10-01",
       "properties": {
         "mode": "Incremental",
         "templateLink": {
-          "uri": "[parameters('linkedTemplateUri')]"
+          "relativePath": "linkedStorageAccount.json"
         },
         "parameters": {
           "storageAccountName": {
@@ -58,7 +52,7 @@
     },
     {
       "type": "Microsoft.Web/serverfarms",
-      "apiVersion": "2016-09-01",
+      "apiVersion": "2020-09-01",
       "name": "[variables('appServicePlanName')]",
       "location": "[parameters('location')]",
       "sku": {
@@ -78,7 +72,7 @@
     },
     {
       "type": "Microsoft.Web/sites",
-      "apiVersion": "2018-11-01",
+      "apiVersion": "2020-09-01",
       "name": "[variables('webAppName')]",
       "location": "[parameters('location')]",
       "dependsOn": [
