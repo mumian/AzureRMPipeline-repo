@@ -38,7 +38,7 @@
       "properties": {
         "mode": "Incremental",
         "templateLink": {
-          "relativePath": "linkedStorageAccount.json"
+          "relativePath": "CreateWebApp/linkedStorageAccount.json"
         },
         "parameters": {
           "storageAccountName": {
