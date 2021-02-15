@@ -20,6 +20,6 @@ steps:
     location: 'Central US'
     templateLocation: 'Linked artifact'
     csmFile: 'CreateWebApp/azuredeploy.json'
-    overrideParameters: '-projectName jgaopipe0214'
+    overrideParameters: '-projectName jgao0214'
     deploymentMode: 'Incremental'
     deploymentName: 'DeployPipelineTemplate'
