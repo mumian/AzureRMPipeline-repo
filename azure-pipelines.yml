@@ -19,7 +19,7 @@ steps:
     resourceGroupName: 'AzureRmPipeline-rg'
     location: 'Central US'
     templateLocation: 'Linked artifact'
-    csmFileLink: 'azuredeploy.json'
+    csmFileLink: 'CreateWebApp/azuredeploy.json'
     overrideParameters: '-projectName jgao0214'
     deploymentMode: 'Incremental'
     deploymentName: 'DeployPipelineTemplate'
