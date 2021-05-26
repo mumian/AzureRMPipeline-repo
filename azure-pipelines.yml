@@ -51,7 +51,6 @@ stages:
       - task: CopyFiles@2
         displayName: 'Copy Templates'
         inputs:
-          SourceFolder: bicep
           TargetFolder: '$(build.artifactstagingdirectory)'
           
       - task: PublishBuildArtifacts@1
