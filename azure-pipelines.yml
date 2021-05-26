@@ -12,9 +12,9 @@ variables:
   workingDirectory: '$(System.DefaultWorkingDirectory)/'
   geoLocation: 'West Europe'
 
-  azureServiceConnection: 'My-Azure-DevOps-ServicePrincipalName'
-  subscriptionId: 'My-Subscription-Id'
-  AZURE_RESOURCE_GROUP: 'myResourceGroupName'
+  azureServiceConnection: 'AzureRmPipeline-conn'
+  subscriptionId: '65a1016d-0f67-45d2-b838-b8f373d6d52e'
+  AZURE_RESOURCE_GROUP: 'jgaopipeline0526rg'
   
 stages:
 - stage: Build
@@ -35,7 +35,7 @@ stages:
           scriptLocation: inlineScript
           inlineScript: |
             az --version
-            az bicep build --file ./main.bicep
+            az bicep build --file ./azuredeploy.bicep
 
       - task: AzureResourceManagerTemplateDeployment@3
         displayName: 'Validate APIM Templates'
@@ -44,7 +44,7 @@ stages:
           subscriptionId: '$(subscriptionId)'
           resourceGroupName: '$(AZURE_RESOURCE_GROUP)'
           location: '$(geoLocation)'
-          csmFile: main.json
+          csmFile: azuredeploy.json
           csmParametersFile: parameters.json
           deploymentMode: Validation
           
@@ -81,6 +81,6 @@ stages:
                   subscriptionId: '$(subscriptionId)'
                   resourceGroupName: '$(AZURE_RESOURCE_GROUP)'
                   location: '$(geoLocation)'
-                  csmFile: '$(Pipeline.Workspace)/drop/main.json'
+                  csmFile: '$(Pipeline.Workspace)/drop/azuredeploy.json'
                   csmParametersFile: '$(Pipeline.Workspace)/drop/parameters.json'
                   deploymentMode: 'Incremental'        
