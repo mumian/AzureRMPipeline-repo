@@ -45,7 +45,7 @@ stages:
           resourceGroupName: '$(AZURE_RESOURCE_GROUP)'
           location: '$(geoLocation)'
           csmFile: azuredeploy.json
-          csmParametersFile: parameters.json
+          csmParametersFile: azuredeploy.parameters.json
           deploymentMode: Validation
           
       - task: CopyFiles@2
@@ -82,5 +82,5 @@ stages:
                   resourceGroupName: '$(AZURE_RESOURCE_GROUP)'
                   location: '$(geoLocation)'
                   csmFile: '$(Pipeline.Workspace)/drop/azuredeploy.json'
-                  csmParametersFile: '$(Pipeline.Workspace)/drop/parameters.json'
+                  csmParametersFile: '$(Pipeline.Workspace)/drop/azuredeploy.parameters.json'
                   deploymentMode: 'Incremental'        
