@@ -5,20 +5,82 @@
 
 trigger:
 - master
+name: 'bicep build and deploy'
 
-pool:
-  vmImage: 'ubuntu-latest'
+variables:
+  vmImageName: 'ubuntu-latest'
+  workingDirectory: '$(System.DefaultWorkingDirectory)/'
+  geoLocation: 'West Europe'
 
-steps: 
-- task: AzureResourceManagerTemplateDeployment@3
-  inputs:
-    deploymentScope: 'Resource Group'
-    azureResourceManagerConnection: 'AzureRmPipeline-conn'
-    subscriptionId: '65a1016d-0f67-45d2-b838-b8f373d6d52e'
-    action: 'Create Or Update Resource Group'
-    resourceGroupName: 'AzureRmPipeline-rg'
-    location: 'Central US'
-    templateLocation: 'URL of the file'
-    csmFileLink: 'https://raw.githubusercontent.com/mumian/AzureRMPipeline-repo/master/CreateAzureStorage/azuredeploy.bicep'
-    deploymentMode: 'Incremental'
-    deploymentName: 'DeployPipelineTemplate'
+  azureServiceConnection: 'My-Azure-DevOps-ServicePrincipalName'
+  subscriptionId: 'My-Subscription-Id'
+  AZURE_RESOURCE_GROUP: 'myResourceGroupName'
+  
+stages:
+- stage: Build
+  displayName: Build
+      
+  jobs:
+  - job: Build
+    displayName: Validate and Publish
+    pool:
+     vmImage: $(vmImageName)
+      
+    steps:
+      - task: AzureCLI@2
+        displayName: Build ARM Template from bicep file
+        inputs:
+          azureSubscription: '$(azureServiceConnection)'
+          scriptType: bash
+          scriptLocation: inlineScript
+          inlineScript: |
+            az --version
+            az bicep build --file ./main.bicep
+
+      - task: AzureResourceManagerTemplateDeployment@3
+        displayName: 'Validate APIM Templates'
+        inputs:
+          azureResourceManagerConnection: '$(azureServiceConnection)'
+          subscriptionId: '$(subscriptionId)'
+          resourceGroupName: '$(AZURE_RESOURCE_GROUP)'
+          location: '$(geoLocation)'
+          csmFile: main.json
+          csmParametersFile: parameters.json
+          deploymentMode: Validation
+          
+      - task: CopyFiles@2
+        displayName: 'Copy Templates'
+        inputs:
+          SourceFolder: bicep
+          TargetFolder: '$(build.artifactstagingdirectory)'
+          
+      - task: PublishBuildArtifacts@1
+        displayName: 'Publish Artifact: drop'
+        inputs:
+          PathtoPublish: '$(build.artifactstagingdirectory)'
+          ArtifactName: 'drop'
+
+- stage: Development
+  displayName: Deploy to Development
+  dependsOn: Build
+  condition: succeeded()
+  jobs:
+    - deployment: Deploy
+      displayName: 'Deploying APIM Template'
+      environment: 'Development'
+      pool:
+        vmImage: $(vmImageName)
+      strategy:
+        runOnce:
+          deploy:
+            steps:
+              - task: AzureResourceManagerTemplateDeployment@3
+                displayName: 'Deploy/Update APIM (Dev)'
+                inputs:
+                  azureResourceManagerConnection: '$(azureServiceConnection)'
+                  subscriptionId: '$(subscriptionId)'
+                  resourceGroupName: '$(AZURE_RESOURCE_GROUP)'
+                  location: '$(geoLocation)'
+                  csmFile: '$(Pipeline.Workspace)/drop/main.json'
+                  csmParametersFile: '$(Pipeline.Workspace)/drop/parameters.json'
+                  deploymentMode: 'Incremental'        
