@@ -19,7 +19,6 @@ steps:
     resourceGroupName: 'AzureRmPipeline-rg'
     location: 'Central US'
     templateLocation: 'URL of the file'
-    csmFileLink: 'https://raw.githubusercontent.com/mumian/AzureRMPipeline-repo/master/CreateWebApp/azuredeploy.json'
-    overrideParameters: '-projectName jgao0214'
+    csmFileLink: 'https://raw.githubusercontent.com/mumian/AzureRMPipeline-repo/master/CreateAzureStorage/azuredeploy.bicep'
     deploymentMode: 'Incremental'
     deploymentName: 'DeployPipelineTemplate'
