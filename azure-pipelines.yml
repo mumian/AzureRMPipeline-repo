@@ -1,6 +1,8 @@
 trigger:
 - master
 
+name: Deploy Bicep files
+
 variables:
   azureServiceConnection: 'AzureRmPipeline-conn'
 
@@ -10,7 +12,7 @@ variables:
   templateFile: './azuredeploy.bicep'
 pool:
   vmImage: $(vmImageName)
-  name: Deploy Bicep files
+
 
 steps:
 - task: AzureCLI@2
