@@ -20,7 +20,11 @@ steps:
     azureSubscription: $(azureServiceConnection)
     scriptType: bash
     scriptLocation: inlineScript
+    arguments: 
+      -Arg1 $(resourceGroupName)
+      -Arg2 $(location)
+      -Arg3 $(templateFile)
     inlineScript: |
       az --version
-      az group create --name jgaopipeline0604rg --location centralus
-      az deployment group create --resource-group jgaopipeline0604rg --template-file ./azuredeploy.bicep
+      az group create --name $1 --location $2
+      az deployment group create --resource-group $1 --template-file $3
