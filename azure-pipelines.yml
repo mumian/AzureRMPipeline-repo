@@ -7,7 +7,7 @@ variables:
   azureServiceConnection: 'AzureRmPipeline-conn'
 
   vmImageName: 'ubuntu-latest'
-  resourceGroupName: 'jgaopipeline0604rg'
+  resourceGroupName: 'jgaopipeline0623rg'
   location: 'centralus'
   templateFile: './azuredeploy.bicep'
 pool:
@@ -21,8 +21,8 @@ steps:
     scriptType: bash
     scriptLocation: inlineScript
     arguments: 
-      -Arg1 $(resourceGroupName)
-      -Arg2 $(location)
+      -Arg1 $(resourceGroupName) `
+      -Arg2 $(location) `
       -Arg3 $(templateFile)
     inlineScript: |
       az --version
