@@ -20,10 +20,6 @@ steps:
     azureSubscription: $(azureServiceConnection)
     scriptType: bash
     scriptLocation: inlineScript
-    arguments: 
-      -Arg1 $(resourceGroupName) `
-      -Arg2 $(location) `
-      -Arg3 $(templateFile)
     inlineScript: |
       az --version
       az group create --name $(resourceGroupName) --location $(location)
