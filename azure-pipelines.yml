@@ -26,5 +26,5 @@ steps:
       -Arg3 $(templateFile)
     inlineScript: |
       az --version
-      az group create --name $1 --location $2
-      az deployment group create --resource-group $1 --template-file $3
+      az group create --name $(resourceGroupName) --location $(location)
+      az deployment group create --resource-group $(resourceGroupName) --template-file $(templateFile)
