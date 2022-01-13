@@ -20,6 +20,6 @@ steps:
     location: 'Central US'
     templateLocation: 'URL of the file'
     csmFileLink: 'https://raw.githubusercontent.com/mumian/AzureRMPipeline-repo/master/CreateWebApp/azuredeploy.json'
-    overrideParameters: '-projectName myarmpl.'
+    overrideParameters: '-projectName jgao0113.'
     deploymentMode: 'Incremental'
     deploymentName: 'DeployPipelineTemplate'
