@@ -4,10 +4,10 @@ trigger:
 name: Deploy Bicep files
 
 variables:
-  azureServiceConnection: 'AzureRmPipeline-conn'
+  azureServiceConnection: 'godspeed'
 
   vmImageName: 'ubuntu-latest'
-  resourceGroupName: 'jgaopipeline0623rg'
+  resourceGroupName: 'jgaopipeline0207rg'
   location: 'centralus'
   templateFile: './azuredeploy.bicep'
 pool:
