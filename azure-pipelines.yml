@@ -9,7 +9,7 @@ variables:
   vmImageName: 'ubuntu-latest'
   resourceGroupName: 'jgaopipeline0207rg'
   location: 'centralus'
-  templateFile: './azuredeploy.bicep'
+  templateFile: 'azuredeploy.bicep'
 pool:
   vmImage: $(vmImageName)
 
