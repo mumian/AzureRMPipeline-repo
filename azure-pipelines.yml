@@ -25,6 +25,7 @@ steps:
     resourceGroupName: 'AzureRMPipeline-rg'
     location: 'Central US'
     templateLocation: 'Linked artifact'
-    csmFile: 'azuredeploy.bicep'
+    csmFile: 'main.bicep'
+    overrideParameters: '-storageAccountType Standard_GRS'
     deploymentMode: 'Incremental'
     deploymentName: 'DeployPipelineTemplate'
