@@ -19,6 +19,6 @@ steps:
     resourceGroupName: 'ARMPipeline-rg'
     location: 'Central US'
     templateLocation: 'URL of the file'
-    csmFileLink: 'https://raw.githubusercontent.com/mumian/AzureRMPipeline-repo/master/CreateWebApp/azuredeploy.jso'
+    csmFileLink: 'https://raw.githubusercontent.com/mumian/AzureRMPipeline-repo/master/CreateWebApp/azuredeploy.json'
     overrideParameters: '-projectName jgaocicd'
     deploymentMode: 'Incremental'
